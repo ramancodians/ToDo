@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+  <head>
+    <meta charset="utf-8">
+      <meta name="theme-color" content="#2886cb">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>ToDO App</title>
+
+    <!--Library-->
+      <script src="js/angular.js"></script>
+      <script src="bower_components/angular-route/angular-route.js"></script>
+      <script src="https://cdn.firebase.com/js/client/2.2.7/firebase.js"></script>
+      <script src="js/angularfire.min.js"></script>
+      
+      <script src="js/main.js"></script>
+    <!-- Bootstrap -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+      
+      <card ng-controller="MainCtrl" dragable="true">
+       <h1 class="title">Todo List</h1>
+          <div class="loader" ng-show="loading">
+            <img src="img/loading.gif">
+          </div>
+          <p ng-hide="loading || tasks.length > 0">
+          No Items Found! Add Tasks Now!
+          </p>
+          
+          <ul ng-show="loading == false">
+            <li ng-repeat="item in tasks | orderBy:'item':reverse" ng-click="done(item.$id)" ng-class="{'done' : item.content.done}">
+                <span class="remove" ng-click="remove(item.$id)">X</span>
+                <span ng-click="done(item.$id)">{{item.content.task}} </span>
+            </li>
+          </ul>
+          <input type="text" placeholder="What you wanna do?" ng-enter="do();" ng-model="newTask">
+      </card>
+  </body>
+</html>
